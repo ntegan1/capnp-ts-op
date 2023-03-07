@@ -738,7 +738,8 @@ export function generateUnnamedUnionEnum(
     .map((field) =>
       {
         const type = f.createTypeReferenceNode(getJsType(ctx, field.getSlot().getType(), true), __);
-        const z = f.createEnumMember(util.c2s(field.getName()), f.createNumericLiteral(Number(2).toString()));
+        //const z = f.createEnumMember(util.c2s(field.getName()), f.createNumericLiteral(Number(2).toString()));
+        const z = f.createEnumMember(util.c2s(field.getName()), type);
         return z;
       }
     );
