@@ -754,12 +754,6 @@ export function generateUnnamedUnionEnum(
   const d = f.createEnumDeclaration(__, [EXPORT], `${fullClassName}_Which`, members);
 
   ctx.statements.push(d);
-  const aa = f.createObjectLiteralExpression(
-    [
-      f.createPropertyAssignment("displayName", f.createStringLiteral("disname")),
-      f.createPropertyAssignment("3", f.createStringLiteral("threefs")),
-    ]
-  );
 
   const m = unionFields
     .sort(compareCodeOrder)
@@ -768,8 +762,9 @@ export function generateUnnamedUnionEnum(
         let u: ts.Expression | undefined;
         const type = f.createTypeReferenceNode(getJsType(ctx, field.getSlot().getType(), true), __);
         //const z = f.createEnumMember(util.c2s(field.getName()), f.createNumericLiteral(Number(2).toString()));
-        const z = f.createEnumMember(util.c2s(field.getName()), aa);
+        //const z = f.createEnumMember(util.c2s(field.getName()), aa);
         //const z = f.createEnumMember(util.c2s(field.getName()), type, u as ts.Expression);
+        const z = f.createEnumMember(f.createNumericLiteral(field.getDiscriminantValue().toString()), f.createStringLiteral(util.c2t(field.getName())));
         return z;
       }
     );
