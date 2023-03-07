@@ -732,6 +732,15 @@ export function generateUnnamedUnionEnum(
   const d = f.createEnumDeclaration(__, [EXPORT], `${fullClassName}_Which`, members);
 
   ctx.statements.push(d);
+
+  const m = unionFields
+    .sort(compareCodeOrder)
+    .map((field) =>
+      f.createEnumMember(util.c2s(field.getName()), f.createNumericLiteral(Number(2).toString()))
+    );
+  const dd = f.createEnumDeclaration(__, [EXPORT], `${fullClassName}_Classes`, m);
+
+  ctx.statements.push(dd);
 }
 
 export function getImportNodes(ctx: CodeGeneratorFileContext, node: s.Node): s.Node[] {
