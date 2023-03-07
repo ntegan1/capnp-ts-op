@@ -524,6 +524,12 @@ export function generateStructFieldMethods(
   if (get) {
     const expressions = [get];
 
+    members.push(createMethod(`get${properName}`, [], jsTypeReference, expressions));
+  }
+  // getFooSafe(): FooType { ... }
+  if (get) {
+    const expressions = [get];
+
     if (union) {
       expressions.unshift(
         f.createCallExpression(f.createPropertyAccessExpression(STRUCT, "testWhich"), __, [
@@ -535,7 +541,7 @@ export function generateStructFieldMethods(
       );
     }
 
-    members.push(createMethod(`get${properName}`, [], jsTypeReference, expressions));
+    members.push(createMethod(`get${properName}Safe`, [], jsTypeReference, expressions));
   }
 
   // hasFoo(): boolean { ... }
@@ -764,7 +770,7 @@ export function generateUnnamedUnionEnum(
         //const z = f.createEnumMember(util.c2s(field.getName()), f.createNumericLiteral(Number(2).toString()));
         //const z = f.createEnumMember(util.c2s(field.getName()), aa);
         //const z = f.createEnumMember(util.c2s(field.getName()), type, u as ts.Expression);
-        const z = f.createEnumMember(f.createNumericLiteral(field.getDiscriminantValue().toString()), f.createStringLiteral(util.c2t(field.getName())));
+        const z = f.createEnumMember(f.createNumericLiteral(field.getDiscriminantValue().toString()), f.createStringLiteral("get" + util.c2t(field.getName())));
         return z;
       }
     );
