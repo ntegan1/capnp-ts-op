@@ -691,22 +691,27 @@ export function generateStructNode(ctx: CodeGeneratorFileContext, node: s.Node, 
   );
   const tsm = createMethod("toString", [], STRING_TYPE, [toStringExpression], true);
   members.push(tsm);
-  //let uu: ts.Expression | undefined;
-  //const typee = f.createTypeReferenceNode(getJsType(ctx, field.getSlot().getType(), true), __);
-  members.push(
-    f.createPropertyDeclaration(
-      __,
-      [STATIC, READONLY],
-      "_mine",
-      __,
-      __,
-      f.createObjectLiteralExpression(
-        [
-          f.createPropertyAssignment("displayName", f.createStringLiteral("ff")),
-        ]
-      )
-    )
-  );
+  //if (hasUnnamedUnion && fields.length > 0) {
+  //  let uu: ts.Expression | undefined;
+  //  const typee = f.createTypeReferenceNode(getJsType(ctx, fields[0].getSlot().getType(), true), __);
+  //        //f.createPropertyDeclaration(__, [], "3", __, typee, uu as ts.Expression),
+  //members.push(
+  //  f.createPropertyDeclaration(
+  //    __,
+  //    [STATIC, READONLY],
+  //    "_mine",
+  //    __,
+  //    __,
+  //    f.createObjectLiteralExpression(
+  //      [
+  //        f.createPropertyAssignment("displayName", f.createStringLiteral("ff")),
+  //        f.createPropertyAssignment("3", f.createStringLiteral("fff")),
+  //        f.createPropertyAssignment("4", f.createTypeLiteralNode([typee])),
+  //      ]
+  //    )
+  //  )
+  //);
+  //}
 
   if (hasUnnamedUnion) {
     // which(): MyStruct_Which { return __S.getUint16(12, this); }
