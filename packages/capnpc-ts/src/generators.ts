@@ -736,7 +736,11 @@ export function generateUnnamedUnionEnum(
   const m = unionFields
     .sort(compareCodeOrder)
     .map((field) =>
-      f.createEnumMember(util.c2s(field.getName()), f.createNumericLiteral(Number(2).toString()))
+      {
+        const type = f.createTypeReferenceNode(getJsType(ctx, field.getSlot().getType(), true), __);
+        const z = f.createEnumMember(util.c2s(field.getName()), f.createNumericLiteral(Number(2).toString()));
+        return z;
+      }
     );
   const dd = f.createEnumDeclaration(__, [EXPORT], `${fullClassName}_Classes`, m);
 
