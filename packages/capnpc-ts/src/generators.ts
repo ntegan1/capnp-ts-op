@@ -689,7 +689,32 @@ export function generateStructNode(ctx: CodeGeneratorFileContext, node: s.Node, 
     ts.SyntaxKind.PlusToken,
     f.createCallExpression(f.createIdentifier("super.toString"), __, [])
   );
-  members.push(createMethod("toString", [], STRING_TYPE, [toStringExpression], true));
+  const tsm = createMethod("toString", [], STRING_TYPE, [toStringExpression], true);
+  members.push(tsm);
+  //let uu: ts.Expression | undefined;
+  //const typee = f.createTypeReferenceNode(getJsType(ctx, field.getSlot().getType(), true), __);
+  //members.push(
+  //  f.createPropertyDeclaration(
+  //    __,
+  //    [STATIC, READONLY],
+  //    "_capnp",
+  //    __,
+  //    __,
+  //    f.createObjectLiteralExpression(
+  //      [
+  //        f.createPropertyAssignment("displayName", f.createStringLiteral(displayNamePrefix)),
+  //        f.createPropertyAssignment("id", f.createStringLiteral(nodeIdHex)),
+  //        f.createPropertyAssignment(
+  //          "size",
+  //          f.createNewExpression(OBJECT_SIZE, __, [
+  //            f.createNumericLiteral(dataByteLength.toString()),
+  //            f.createNumericLiteral(pointerCount.toString()),
+  //          ])
+  //        ),
+  //      ].concat(defaultValues)
+  //    )
+  //  )
+  //);
 
   if (hasUnnamedUnion) {
     // which(): MyStruct_Which { return __S.getUint16(12, this); }
@@ -737,9 +762,10 @@ export function generateUnnamedUnionEnum(
     .sort(compareCodeOrder)
     .map((field) =>
       {
+        let u: ts.Expression | undefined;
         const type = f.createTypeReferenceNode(getJsType(ctx, field.getSlot().getType(), true), __);
-        //const z = f.createEnumMember(util.c2s(field.getName()), f.createNumericLiteral(Number(2).toString()));
-        const z = f.createEnumMember(util.c2s(field.getName()), type);
+        const z = f.createEnumMember(util.c2s(field.getName()), f.createNumericLiteral(Number(2).toString()));
+        //const z = f.createEnumMember(util.c2s(field.getName()), type, u as ts.Expression);
         return z;
       }
     );
