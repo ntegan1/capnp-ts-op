@@ -693,28 +693,20 @@ export function generateStructNode(ctx: CodeGeneratorFileContext, node: s.Node, 
   members.push(tsm);
   //let uu: ts.Expression | undefined;
   //const typee = f.createTypeReferenceNode(getJsType(ctx, field.getSlot().getType(), true), __);
-  //members.push(
-  //  f.createPropertyDeclaration(
-  //    __,
-  //    [STATIC, READONLY],
-  //    "_capnp",
-  //    __,
-  //    __,
-  //    f.createObjectLiteralExpression(
-  //      [
-  //        f.createPropertyAssignment("displayName", f.createStringLiteral(displayNamePrefix)),
-  //        f.createPropertyAssignment("id", f.createStringLiteral(nodeIdHex)),
-  //        f.createPropertyAssignment(
-  //          "size",
-  //          f.createNewExpression(OBJECT_SIZE, __, [
-  //            f.createNumericLiteral(dataByteLength.toString()),
-  //            f.createNumericLiteral(pointerCount.toString()),
-  //          ])
-  //        ),
-  //      ].concat(defaultValues)
-  //    )
-  //  )
-  //);
+  members.push(
+    f.createPropertyDeclaration(
+      __,
+      [STATIC, READONLY],
+      "_mine",
+      __,
+      __,
+      f.createObjectLiteralExpression(
+        [
+          f.createPropertyAssignment("displayName", f.createStringLiteral("ff")),
+        ]
+      )
+    )
+  );
 
   if (hasUnnamedUnion) {
     // which(): MyStruct_Which { return __S.getUint16(12, this); }
